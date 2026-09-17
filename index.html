@@ -1,0 +1,328 @@
+<title>Kailey's Post-CPA Watchlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Caveat:wght@600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fff3f7;
+    --bg-deep:#ffe0ec;
+    --surface:#ffffff;
+    --accent:#ff5f9e;
+    --accent-deep:#c92b6e;
+    --gold:#f0b64c;
+    --ink:#4a1f34;
+    --ink-soft:#8f5a74;
+    --border:#ffd3e6;
+    --shadow:rgba(201,43,110,0.16);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#210f1a;
+      --bg-deep:#2b1522;
+      --surface:#33192a;
+      --accent:#ff86b8;
+      --accent-deep:#ffc3dd;
+      --gold:#f0b64c;
+      --ink:#fbe9f1;
+      --ink-soft:#d9a6c1;
+      --border:#4a2438;
+      --shadow:rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#210f1a;
+    --bg-deep:#2b1522;
+    --surface:#33192a;
+    --accent:#ff86b8;
+    --accent-deep:#ffc3dd;
+    --gold:#f0b64c;
+    --ink:#fbe9f1;
+    --ink-soft:#d9a6c1;
+    --border:#4a2438;
+    --shadow:rgba(0,0,0,0.4);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 8%, var(--bg-deep), transparent 55%),
+      radial-gradient(circle at 85% 92%, var(--bg-deep), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Quicksand',system-ui,sans-serif;
+    padding:0 20px;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  h1,h2{font-family:'Bricolage Grotesque',system-ui,sans-serif; text-wrap:balance;}
+
+  /* ---------- decorative background blobs ---------- */
+  .blob{
+    position:fixed; border-radius:50%; filter:blur(38px);
+    opacity:.35; z-index:-1; pointer-events:none;
+  }
+  .blob-a{width:280px;height:280px; top:-80px; left:-90px; background:var(--accent);}
+  .blob-b{width:220px;height:220px; bottom:-60px; right:-60px; background:var(--gold);}
+  .blob-c{width:180px;height:180px; top:40%; right:-100px; background:var(--accent);}
+  @media (prefers-reduced-motion: no-preference){
+    .blob{animation:drift 16s ease-in-out infinite;}
+    .blob-b{animation-duration:19s; animation-delay:-4s;}
+    .blob-c{animation-duration:22s; animation-delay:-9s;}
+  }
+  @keyframes drift{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(24px,-30px);}
+  }
+
+  /* ================= INTRO ================= */
+  #intro{
+    position:fixed; inset:0; z-index:50;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:28px;
+    background:linear-gradient(160deg, var(--bg-deep), var(--bg));
+    cursor:pointer;
+    transition:opacity .7s ease, visibility .7s ease;
+  }
+  #intro.done{opacity:0; visibility:hidden;}
+
+  .champagne{position:relative; width:120px; height:190px;}
+  .bottle-neck{
+    position:absolute; left:50px; top:18px; width:20px; height:46px;
+    background:linear-gradient(180deg,#3f7a4f,#2c5b3b);
+    border-radius:6px 6px 2px 2px;
+  }
+  .bottle-body{
+    position:absolute; left:26px; top:56px; width:68px; height:104px;
+    background:linear-gradient(160deg,#3f7a4f,#1f4630);
+    border-radius:14px 14px 26px 26px;
+  }
+  .bottle-label{
+    position:absolute; left:34px; top:96px; width:52px; height:34px;
+    background:var(--gold); border-radius:4px; opacity:.9;
+  }
+  .cork{
+    position:absolute; left:47px; top:6px; width:22px; height:26px;
+    background:linear-gradient(160deg,#f3d999,#d9a94c);
+    border-radius:5px;
+    animation:pop 1s cubic-bezier(.25,.9,.4,1) forwards;
+    animation-delay:.5s;
+  }
+  @keyframes pop{
+    0%{transform:translate(0,0) rotate(0deg); opacity:1;}
+    65%{transform:translate(46px,-150px) rotate(280deg); opacity:1;}
+    100%{transform:translate(58px,-120px) rotate(340deg); opacity:0;}
+  }
+  .spray{
+    position:absolute; left:57px; top:8px; width:8px; height:8px; border-radius:50%;
+    background:var(--gold); opacity:0;
+    animation:burst .8s ease-out forwards;
+  }
+  @keyframes burst{
+    0%{transform:translate(0,0) scale(.4); opacity:0;}
+    15%{opacity:1;}
+    100%{transform:translate(var(--dx),var(--dy)) scale(1.1); opacity:0;}
+  }
+  .confetti{
+    position:absolute; top:-10px; width:9px; height:15px; opacity:0;
+    animation:fall 2s ease-in forwards;
+  }
+  @keyframes fall{
+    0%{opacity:0; transform:translateY(0) rotate(0deg);}
+    10%{opacity:1;}
+    100%{opacity:0; transform:translateY(220px) rotate(340deg);}
+  }
+  .intro-text{text-align:center; padding:0 24px;}
+  .intro-line{
+    font-family:'Bricolage Grotesque',system-ui,sans-serif; color:var(--accent-deep);
+    opacity:0; transform:translateY(8px);
+    animation:fadeIn .8s ease forwards;
+  }
+  .intro-line.l1{font-size:clamp(1.6rem,5vw,2.5rem); font-weight:700; animation-delay:1.5s;}
+  .intro-line.l2{font-size:clamp(1rem,3.2vw,1.45rem); font-weight:600; margin-top:4px; animation-delay:2.1s; color:var(--ink-soft);}
+  @keyframes fadeIn{ to{opacity:1; transform:translateY(0);} }
+
+  @media (prefers-reduced-motion: reduce){
+    .cork,.spray,.confetti{animation:none; opacity:0;}
+    .intro-line{animation:none; opacity:1; transform:none;}
+  }
+
+  /* ================= MAIN ================= */
+  main{
+    max-width:640px; margin:0 auto; padding:64px 0 80px;
+  }
+  .hero{position:relative; text-align:center; margin-bottom:8px;}
+  .hero h1{
+    font-size:clamp(2.1rem,7vw,3.1rem); font-weight:700; margin:0;
+    color:var(--accent-deep);
+  }
+  .hero .swash{display:block; width:min(260px,70%); margin:2px auto 18px; opacity:.85;}
+  .hero p{
+    color:var(--ink-soft); font-weight:600; font-size:1.02rem; margin:0 auto 8px;
+    max-width:420px;
+  }
+
+  .gallery{
+    list-style:none; margin:36px 0 0; padding:0;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .film{
+    --rot:0deg;
+    display:flex; align-items:center; gap:16px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:14px 18px;
+    box-shadow:0 10px 24px -12px var(--shadow);
+    transform:rotate(var(--rot));
+  }
+  .film:nth-child(odd){--rot:-0.5deg;}
+  .film:nth-child(even){--rot:0.5deg;}
+  @media (prefers-reduced-motion: no-preference){
+    .film{animation:float 5.4s ease-in-out infinite;}
+    .film{animation-delay: calc(var(--i) * -0.35s);}
+    .film:nth-child(3n){animation-duration:6.2s;}
+    .film:nth-child(4n){animation-duration:4.8s;}
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0) rotate(var(--rot));}
+    50%{transform:translateY(-7px) rotate(var(--rot));}
+  }
+
+  .poster{
+    position:relative; overflow:hidden;
+    flex:0 0 auto; width:clamp(52px,15vw,72px); aspect-ratio:2/3;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.18), 0 4px 10px -4px var(--shadow);
+  }
+  .poster span{
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:700;
+    color:rgba(255,255,255,.92); font-size:clamp(.85rem,2.6vw,1.1rem);
+    letter-spacing:.02em; text-shadow:0 1px 3px rgba(0,0,0,.25);
+  }
+  .poster img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; border-radius:10px;
+  }
+  .film-info{min-width:0;}
+  .film-info h2{
+    font-size:1.08rem; font-weight:700; margin:0 0 2px; color:var(--ink);
+    line-height:1.25;
+  }
+  .film-info h2 .year{
+    font-weight:500; color:var(--ink-soft); font-size:.85em;
+  }
+  .film-info .genre{
+    margin:0 0 4px; font-size:.68rem; font-weight:700; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--accent-deep);
+  }
+  .film-info .desc{
+    margin:0; color:var(--ink-soft); font-size:.9rem; line-height:1.45;
+  }
+
+  footer{
+    text-align:center; margin-top:56px; color:var(--ink-soft);
+    font-family:'Caveat',cursive; font-size:1.3rem; font-weight:700;
+  }
+</style>
+
+<div class="blob blob-a"></div>
+<div class="blob blob-b"></div>
+<div class="blob blob-c"></div>
+
+<div id="intro">
+  <div class="champagne">
+    <div class="bottle-neck"></div>
+    <div class="bottle-body"></div>
+    <div class="bottle-label"></div>
+    <div class="cork"></div>
+  </div>
+  <div class="intro-text">
+    <p class="intro-line l1">congrats on finishing your CPA!!!</p>
+    <p class="intro-line l2">it's time to relax with&hellip;</p>
+  </div>
+</div>
+
+<main>
+  <div class="hero">
+    <h1>kailey&rsquo;s post&#8209;CPA watchlist</h1>
+    <svg class="swash" viewBox="0 0 260 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M4 12C40 2 80 2 100 10C120 18 150 2 180 6C205 9.5 230 2 256 10" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <p>you did it pookie!! i'm so proud of you - now it's time to relax and have a little movie marathon</p>
+  </div>
+
+  <ul class="gallery" id="gallery"></ul>
+</main>
+
+<script>
+  var films = [
+    ["Sing","2016","SG","#e85d9c","#ffd166","Animation • Comedy • Family","A koala named Buster recruits his best friend to help him drum up business for his theater by hosting a singing competition.","https://image.tmdb.org/t/p/w342/rwopfpHqPCYBSgBuZwkaXXqHp14.jpg"],
+    ["Crazy, Stupid, Love.","2011","CSL","#ff9a8b","#ffd3a8","Comedy • Drama • Romance","Over 40 and suddenly single, Cal is adrift in the fickle world of dating, and Jacob Palmer, a self-styled player, takes him under his wing and teaches him how to be a hit with the ladies.","https://image.tmdb.org/t/p/w342/p4RafgAPk558muOjnBMHhMArjS2.jpg"],
+    ["Casino Royale","2006","CR","#10100f","#c9a227","Adventure • Action • Thriller","M sends Bond, on his maiden mission as a 00 Agent, to attend the most important poker game of his career and stop a financier of the world's terrorists from winning.","https://image.tmdb.org/t/p/w342/lMrxYKKhd4lqRzwUHAy5gcx9PSO.jpg"],
+    ["Little Women","2019","LW","#c97b4b","#f3d6b0","Drama • Romance","Four sisters come of age in America in the aftermath of the Civil War.","https://image.tmdb.org/t/p/w342/yn5ihODtZ7ofn8pDYfxCmxh8AXI.jpg"],
+    ["The Wild Robot","2024","WR","#2e6e62","#a7d8c9","Family • Animation • Sci-Fi","After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.","https://image.tmdb.org/t/p/w342/wTnV3PCVW5O92JMrFvvrRcV39RU.jpg"],
+    ["Mamma Mia!","2008","MM","#2fb6c4","#ffe066","Comedy • Romance","A spirited young bride-to-be living with her single mother on a small Greek island secretly invites three of her mother's ex-boyfriends in hope of finding her biological father to walk her down the aisle.","https://image.tmdb.org/t/p/w342/xYLiCWmAMHJubx5jNZ7HuXKjAbV.jpg"],
+    ["Knives Out","2019","KO","#5b1a2b","#c1505f","Comedy • Crime • Mystery","When renowned crime novelist Harlan Thrombey is found dead at his estate just after his 85th birthday, the inquisitive and debonair Detective Benoit Blanc is mysteriously enlisted to investigate.","https://image.tmdb.org/t/p/w342/pThyQovXQrw2m0s9x82twj48Jq4.jpg"],
+    ["Ocean's 8","2018","O8","#1c1c24","#d9b44a","Crime • Comedy • Action","Debbie Ocean, a criminal mastermind, gathers a crew of female thieves to pull off the heist of the century at New York's annual Met Gala.","https://image.tmdb.org/t/p/w342/MvYpKlpFukTivnlBhizGbkAe3v.jpg"],
+    ["Catch Me If You Can","2002","CM","#1b2a4a","#d9b65e","Drama • Crime","A true story about Frank Abagnale Jr. who, before his 19th birthday, successfully conned millions of dollars worth of checks as a Pan Am pilot, doctor, and legal prosecutor, with an FBI agent making it his mission to put him behind bars.","https://image.tmdb.org/t/p/w342/ctjEj2xM32OvBXCq8zAdK3ZrsAj.jpg"],
+    ["Soul","2020","SO","#3a1e5c","#8c6fcb","Animation • Family • Drama","Joe Gardner is a middle school teacher with a love for jazz music. After a successful audition at the Half Note Club, an accident separates his soul from his body, and he must find his way back with help from 22, a soul who has spent eons avoiding life on Earth.","https://image.tmdb.org/t/p/w342/hm58Jw4Lw8OIeECIq5qyPYhAeRJ.jpg"],
+    ["Focus","2015","FO","#2b0f14","#c4243a","Romance • Comedy • Crime","Nicky, an accomplished con artist, gets romantically involved with his disciple Jess but later ends their relationship. Years later, she returns as a femme fatale to spoil his plans.","https://image.tmdb.org/t/p/w342/lOzGWjceYTd0kd5HyX7Ch46O9kh.jpg"],
+    ["Sinners","2025","SN","#1a0a0a","#8c1f2b","Horror • Action • Thriller","Trying to leave their troubled lives behind, twin brothers return to their hometown to start again, only to discover that an even greater evil is waiting to welcome them back.","https://image.tmdb.org/t/p/w342/fWPgbnt2LSqkQ6cdQc0SZN9CpLm.jpg"],
+    ["The Holiday","2006","TH","#c43b4e","#fff3e2","Comedy • Romance","Two women, one American and one British, swap homes at Christmastime following bad breakups, and each woman finds romance with a local man but realizes that the imminent return home may end the relationship.","https://image.tmdb.org/t/p/w342/h1ITOpvJN3Tw4Sy60w2QTfYMvdd.jpg"],
+    ["About Time","2013","AT","#e8a24a","#fce3b0","Drama • Romance • Fantasy","The men in Tim's family can travel through time. They can't change history, but they can change what happens in their own lives — the start of a lesson in learning to appreciate life exactly as it comes.","https://image.tmdb.org/t/p/w342/ls6zswrOZVhCXQBh96DlbnLBajM.jpg"],
+    ["Jennifer's Body","2009","JB","#14231a","#4b7a4e","Horror • Comedy","A gorgeous, seductive cheerleader takes evil to a whole new level after she's possessed by a sinister demon, and now it's up to her best friend to stop her reign of terror before it's too late.","https://image.tmdb.org/t/p/w342/wrkjsGcFJxcQqR56kJUYAEKKg2T.jpg"],
+    ["Eternity","2025","ET","#c9a6e0","#f6d9e7","Romance • Comedy • Drama","In an afterlife where souls have one week to decide where to spend eternity, Joan is faced with the impossible choice between the man she spent her life with and her first love, who died young and has waited decades for her.","https://image.tmdb.org/t/p/w342/yiwGcjfDKXD5PqQnyKUU9kspWQQ.jpg"],
+  ];
+
+  var gallery = document.getElementById('gallery');
+  films.forEach(function(f, i){
+    var li = document.createElement('li');
+    li.className = 'film';
+    li.style.setProperty('--i', i);
+    li.innerHTML =
+      '<div class="poster" style="background:linear-gradient(150deg,'+f[3]+','+f[4]+')"><span>'+f[2]+'</span>' +
+      '<img src="'+f[7]+'" alt="" loading="lazy" onerror="this.remove()"></div>' +
+      '<div class="film-info"><h2>'+f[0]+' <span class="year">('+f[1]+')</span></h2><p class="genre">'+f[5]+'</p><p class="desc">'+f[6]+'</p></div>';
+    gallery.appendChild(li);
+  });
+
+  (function(){
+    var intro = document.getElementById('intro');
+    function finish(){
+      intro.classList.add('done');
+      setTimeout(function(){ intro.style.display='none'; }, 750);
+    }
+    setTimeout(finish, 3500);
+  })();
+
+  // decorative confetti + champagne spray, generated once
+  (function(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var champagne = document.querySelector('.champagne');
+    var colors = ['#ff5f9e','#f0b64c','#ffffff'];
+    for(var i=0;i<10;i++){
+      var s = document.createElement('div');
+      s.className='spray';
+      var angle = (Math.random()*140-70) * Math.PI/180;
+      var dist = 40+Math.random()*50;
+      s.style.setProperty('--dx', Math.round(Math.sin(angle)*dist)+'px');
+      s.style.setProperty('--dy', Math.round(-Math.abs(Math.cos(angle))*dist-20)+'px');
+      s.style.background = colors[i%colors.length];
+      s.style.animationDelay = (0.55+Math.random()*0.3)+'s';
+      champagne.appendChild(s);
+    }
+    for(var j=0;j<16;j++){
+      var c = document.createElement('div');
+      c.className='confetti';
+      c.style.left = (Math.random()*100)+'px';
+      c.style.top = (-10-Math.random()*20)+'px';
+      c.style.background = colors[j%colors.length];
+      c.style.borderRadius = (j%2===0)?'50%':'2px';
+      c.style.animationDelay = (0.7+Math.random()*0.6)+'s';
+      c.style.animationDuration = (1.6+Math.random()*0.8)+'s';
+      champagne.appendChild(c);
+    }
+  })();
+</script>
